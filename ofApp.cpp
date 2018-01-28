@@ -7,10 +7,10 @@ void ofApp::setup(){
 	video.setDeviceID(0);
     video.setDesiredFrameRate(60);
     video.initGrabber(640, 480);
-    debug = true;
+    debug = false;
 
     // initialize particle system
-    partSys.setupAsGrid(10,2,150);
+    partSys.setupAsGrid(20,2,100);
 }
 
 //--------------------------------------------------------------
@@ -75,10 +75,10 @@ void ofApp::update(){
                 // decrease noise (unnecessary)
 				bufferFloat.erode();
 			}
+            // update particle system
+            partSys.update();
 		}
 	}
-    // update particle system
-    partSys.update();
 
 }
 
@@ -119,7 +119,7 @@ void ofApp::draw(){
         if (debug)
         {
             //Shift and scale the coordinate system
-            ofPushMatrix();
+            //ofPushMatrix();
             ofTranslate( w/2, h/2);
             ofScale( 0.5, 0.5 );
             //Draw bounding rectangle
@@ -144,24 +144,26 @@ void ofApp::draw(){
                 float value = pixels[ x + w * y ];
                 //If value exceed threshold, then draw pixel
                 //original threshold value of 0.9
-                if ( value >= 1.4 ) { 
+                //2 is good for gestural hand movements
+                if ( value >= 2 ) { 
                     if(debug){
+                        // draw ellipses at diffs
                         ofPushStyle();
                         ofNoFill();
                         ofDrawEllipse(x,y,15,15);
                         ofPopStyle();
                     }else{
-                        //EDIT HERE: this is where you'll be activating
                         //the grid locations or generating particles
-                        //the debug mode draws small black points in the bottom right square
+                        //activate grid system
                         partSys.activateParticle(x,y);
-
-
                     }
                 }
             }
         }
 	}
+    if(!debug){
+        partSys.draw();
+    }
 }
 
 //--------------------------------------------------------------
