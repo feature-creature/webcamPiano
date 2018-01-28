@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxOpenCv.h"
+#include "simpleParticleSystem.h"
 
 class ofApp : public ofBaseApp{
 

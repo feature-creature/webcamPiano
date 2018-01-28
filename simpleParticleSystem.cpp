@@ -13,6 +13,7 @@ static bool shouldRemoveOffScreen(simpleParticle p)
 }
 //##############################################################################
 //-----------------------------------------------
+// ?? constructor - not the same as a setup function?
 simpleParticleSystem::simpleParticleSystem()
 {
     removeOffScreenParticles = true;
@@ -20,12 +21,23 @@ simpleParticleSystem::simpleParticleSystem()
 }
 //-----------------------------------------------
 // optionally by calling this function you can set up a grid
+//
+// _size of cell in grid, not size of grid
+// default window size in main.cpp is 640X480
+// make sure to use a whole number multiple of window size for the cell size
+// to create an accurate grid
+//
+// _agingRate of cell refers to duration of time 
+// for circle to fade to full transparency
+//
+// _lifespan of cell refers to initial transparency for a circle 
 void simpleParticleSystem::setupAsGrid(float _size, float _agingRate, float _lifespan)
 {
     removeDeadParticles = false;
     gridCellSize = _size;
     lifespan = _lifespan;
-
+    
+    // iterate rows by columns
     for (int y=gridCellSize/2; y <= ofGetHeight() - gridCellSize/2; y+=gridCellSize)
     {
         for (int x=gridCellSize/2; x <= ofGetWidth() - gridCellSize/2; x+=gridCellSize)
