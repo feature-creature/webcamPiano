@@ -18,6 +18,7 @@ public:
 	ofxCvGrayscaleImage diff;		//Absolute difference of the frames
 	ofxCvFloatImage diffFloat;		//Amplified difference images
 	ofxCvFloatImage bufferFloat;	//Buffer image
+    simpleParticleSystem partSys;
 
     void mousePressed(int x, int y, int button);
     bool debug;

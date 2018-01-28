@@ -10,7 +10,7 @@ void ofApp::setup(){
     debug = true;
 
     // initialize particle system
-    simpleParticleSystem.setupAsGrid(10,2,150);
+    partSys.setupAsGrid(10,2,150);
 }
 
 //--------------------------------------------------------------
@@ -77,9 +77,9 @@ void ofApp::update(){
 			}
 		}
 	}
-
     // update particle system
-    simpleParticleSystem.update();
+    partSys.update();
+
 }
 
 
@@ -127,6 +127,7 @@ void ofApp::draw(){
             ofNoFill();
 
             //?? no ofPopMatrix();
+            //perhaps ends within scope
         }
 
         //locally store bufferFloat pixels
@@ -142,17 +143,21 @@ void ofApp::draw(){
                 //Get the pixel value
                 float value = pixels[ x + w * y ];
                 //If value exceed threshold, then draw pixel
-                //original was 0.9
+                //original threshold value of 0.9
                 if ( value >= 1.4 ) { 
-                   if (debug){
-                       // 1x1 rectangle at location
-                       ofRect( x, y, 1, 1 );
-                   }else{
-                   //EDIT HERE: this is where you'll be activating
-                   //the grid locations or generating particles
-                   //the debug mode draws small black points in the bottom right square
-                        activateParticle(x,y);
-                   }
+                    if(debug){
+                        ofPushStyle();
+                        ofNoFill();
+                        ofDrawEllipse(x,y,15,15);
+                        ofPopStyle();
+                    }else{
+                        //EDIT HERE: this is where you'll be activating
+                        //the grid locations or generating particles
+                        //the debug mode draws small black points in the bottom right square
+                        partSys.activateParticle(x,y);
+
+
+                    }
                 }
             }
         }
