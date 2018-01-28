@@ -145,7 +145,7 @@ void ofApp::draw(){
                 //If value exceed threshold, then draw pixel
                 //original threshold value of 0.9
                 //2 is good for gestural hand movements
-                if ( value >= 2 ) { 
+                if ( value >= 2.25 ) { 
                     if(debug){
                         // draw ellipses at diffs
                         ofPushStyle();

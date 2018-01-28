@@ -46,7 +46,7 @@ void simpleParticleSystem::setupAsGrid(float _size, float _agingRate, float _lif
             s.radius = gridCellSize/2;
             s.agingRate = _agingRate;
             s.lifespan = lifespan;
-            s.color = ofColor(ofRandom(255), ofRandom(255), ofRandom(255));
+            s.color = ofColor(255,255,255);
             particles.push_back(s);
         }
     }
@@ -77,8 +77,15 @@ void simpleParticleSystem::draw()
     ofFill();
     for (int i=0; i<particles.size(); i++)
     {
+        ofNoFill();
         ofSetColor(particles[i].color, particles[i].lifespan);
-        ofCircle(particles[i].loc.x, particles[i].loc.y,  particles[i].radius);
+        //ofCircle(particles[i].loc.x, particles[i].loc.y,  particles[i].radius);
+        if(particles[i].lifespan > 40){
+            ofCircle(particles[i].loc.x, particles[i].loc.y, particles[i].lifespan/10);
+        }else{
+            //ghosting at the end of life
+            ofCircle(particles[i].loc.x, particles[i].loc.y, particles[i].radius);
+        }
     }
     ofPopStyle();
 }
